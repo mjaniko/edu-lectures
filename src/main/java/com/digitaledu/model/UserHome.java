@@ -1,14 +1,17 @@
 package com.digitaledu.model;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@Builder
 @Entity
 @Table(name = "user_home")
-public class UserHome {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserHome extends AbstractEntity{
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -20,36 +23,4 @@ public class UserHome {
     @Column(name = "home_name")
     private String homeName;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
-
-    public String getDeviceHash() {
-        return deviceHash;
-    }
-
-    public void setDeviceHash(String deviceHash) {
-        this.deviceHash = deviceHash;
-    }
-
-    public String getHomeName() {
-        return homeName;
-    }
-
-    public void setHomeName(String homeName) {
-        this.homeName = homeName;
-    }
 }

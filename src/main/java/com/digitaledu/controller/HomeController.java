@@ -1,7 +1,6 @@
 package com.digitaledu.controller;
 
 import com.digitaledu.configuration.CustomConfiguration;
-import com.digitaledu.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +21,11 @@ public class HomeController {
         return "index.html";
     }
 
-    @PostMapping("/profile")
+    @GetMapping("/profile")
+    @ResponseBody
     public String profile(){
         configuration.getPrefix();
-        return "User Profile page";
+        return "profile.html";
     }
 
     @PutMapping("/put")

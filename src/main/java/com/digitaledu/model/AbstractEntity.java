@@ -1,8 +1,38 @@
 package com.digitaledu.model;
 
-public class AbstractEntity {
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Date;
 
 
-    public Long id;
+@Getter
+@Setter
+@MappedSuperclass
+abstract class AbstractEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updateAt;
+
+    @PrePersist
+    void onCreate(){
+        createdAt = new Date();
+    }
+
+    @PreUpdate
+    void onUpdate(){
+        updateAt = new Date();
+    }
+
 
 }

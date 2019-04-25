@@ -1,5 +1,6 @@
 package com.digitaledu.controller;
 
+import com.digitaledu.model.Lecturer;
 import com.digitaledu.model.Users;
 import com.digitaledu.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
