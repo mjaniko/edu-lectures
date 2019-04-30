@@ -1,11 +1,7 @@
 package com.digitaledu.bootstrap;
 
-import com.digitaledu.model.Lecturer;
-import com.digitaledu.model.Student;
-import com.digitaledu.model.Users;
-import com.digitaledu.repository.LecturerRepository;
-import com.digitaledu.repository.StudentRepository;
-import com.digitaledu.repository.UsersRepository;
+import com.digitaledu.model.*;
+import com.digitaledu.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -19,6 +15,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private PermissionRepository permissionRepository;
+
 
     @Autowired
     private LecturerRepository lecturerRepository;
@@ -83,6 +86,23 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         students.add(Student.builder().fullName("Leqso").build());
         students.add(Student.builder().fullName("Achi").build());
         studentRepository.saveAll(students);
+
+        List<Role> roleList = new ArrayList<>();
+
+        roleList.add(Role.builder().name("SUPER_ADMIN").build());
+        roleList.add(Role.builder().name("MODERATOR").build());
+
+        roleRepository.saveAll(roleList);
+
+
+        List<Permission> permissionList = new ArrayList<>();
+
+        permissionList.add(Permission.builder().name("CAN_CREATE").build());
+        permissionList.add(Permission.builder().name("CAN_EDIT").build());
+        permissionList.add(Permission.builder().name("CAN_DELETE").build());
+
+        permissionRepository.saveAll(permissionList);
+
 
 
     }

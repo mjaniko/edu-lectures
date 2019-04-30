@@ -4,6 +4,7 @@ import com.digitaledu.model.Lecturer;
 import com.digitaledu.model.Users;
 import com.digitaledu.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,5 +61,21 @@ public class UsersController {
         return (List<Users>) usersRepository.findAll();
     }
 
+
+    @GetMapping("/findByUserName")
+    private Users findByUserExampl(@RequestParam("name") String username) {
+        return usersRepository.getUserName(username);
+    }
+
+    @GetMapping("/findByUserName2")
+    private Long findByUserExampl2(@RequestParam("name") String username) {
+        return usersRepository.getUserNamee(username);
+    }
+
+    @GetMapping("/setActivity")
+    private ResponseEntity updateAllUserActivity(@RequestParam("active") boolean isActive){
+        usersRepository.setAllUserActivityStatus(isActive);
+        return ResponseEntity.ok(true);
+    }
 
 }

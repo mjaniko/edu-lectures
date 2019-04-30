@@ -1,16 +1,14 @@
 package com.digitaledu.controller;
 
-import com.digitaledu.LecturerDTO;
-import com.digitaledu.StudentDTO;
+import com.digitaledu.dto.LecturerDTO;
+import com.digitaledu.wrapper.LecturerWrapper;
 import com.digitaledu.model.Lecturer;
-import com.digitaledu.model.Student;
-import com.digitaledu.repository.LecturerRepository;
+import com.digitaledu.service.LectureService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,33 +16,21 @@ import java.util.List;
 public class LecturerController {
 
     @Autowired
-    private LecturerRepository lecturerRepository;
+    private LectureService lectureService;
+
+    @PostMapping("add")
+    public ResponseEntity addLecturer(@Valid @RequestBody LecturerDTO data){
+        return lectureService.addLecturer(data);
+    }
+
 
     @GetMapping("list")
-    public List<Lecturer> list(){
-        return (List<Lecturer>) lecturerRepository.findAll();
+    public List<Lecturer> list() {
+        return lectureService.list();
     }
 
     @GetMapping("wrappedList")
-    public List<LecturerDTO> lecturerDTOList(){
-        List<LecturerDTO> dtos = new ArrayList<>();
-        lecturerRepository.findAll().forEach((lecturer -> {
-
-            List<StudentDTO> studentDTOList = new ArrayList<>();
-            if(!lecturer.getStudent().isEmpty()){
-
-                /**
-                 * for(Student student : lecturer.getStudent()){
-                    studentDTOList.add(new StudentDTO(student.getId(), student.getFullName()));
-                } **/
-
-                lecturer.getStudent().forEach(student -> {
-                    studentDTOList.add(new StudentDTO(student.getId(), student.getFullName()));
-                });
-            }
-            dtos.add(new LecturerDTO(lecturer.getId(), studentDTOList,  lecturer.getFullName()));
-        }));
-
-        return dtos;
+    public List<LecturerWrapper> lecturerDTOList() {
+        return lectureService.lecturerDTOList();
     }
 }

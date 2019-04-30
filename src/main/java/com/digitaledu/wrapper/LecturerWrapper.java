@@ -1,17 +1,17 @@
-package com.digitaledu;
+package com.digitaledu.wrapper;
 
 
 import java.util.List;
 
-public class LecturerDTO {
+public class LecturerWrapper {
 
     private Long id;
 
-    private List<StudentDTO> student;
+    private List<StudentWrapper> student;
 
     private String fullName;
 
-    public LecturerDTO(Long id, List<StudentDTO> student, String fullName) {
+    public LecturerWrapper(Long id, List<StudentWrapper> student, String fullName) {
         this.id = id;
         this.student = student;
         this.fullName = fullName;
@@ -21,7 +21,7 @@ public class LecturerDTO {
         return id;
     }
 
-    public List<StudentDTO> getStudent() {
+    public List<StudentWrapper> getStudent() {
         return student;
     }
 

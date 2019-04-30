@@ -1,24 +1,22 @@
 package com.digitaledu.controller;
 
-import com.digitaledu.wrapper.LecturerWrapper;
-import com.digitaledu.service.LectureService;
+import com.digitaledu.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/test")
-public class TestController {
+@RequestMapping("role")
+public class RoleController {
 
     @Autowired
-    private LectureService lectureService;
+    private RoleRepository roleRepository;
 
-    @GetMapping
-    public List<LecturerWrapper> call() {
-        return lectureService.lecturerDTOList();
+    @GetMapping("list")
+    public ResponseEntity roleList(){
+        return ResponseEntity.ok(roleRepository.findAll());
     }
 
 }

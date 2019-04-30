@@ -1,10 +1,10 @@
-package com.digitaledu;
+package com.digitaledu.wrapper;
 
-public class StudentDTO {
+public class StudentWrapper {
     private Long id;
     private String fullName;
 
-    public StudentDTO(Long id, String fullName) {
+    public StudentWrapper(Long id, String fullName) {
         this.id = id;
         this.fullName = fullName;
     }
