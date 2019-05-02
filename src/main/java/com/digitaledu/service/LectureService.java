@@ -1,15 +1,13 @@
 package com.digitaledu.service;
 
-import com.digitaledu.dto.LecturerDTO;
-import com.digitaledu.dto.ResponseDTO;
+import com.digitaledu.data.dto.LecturerDTO;
+import com.digitaledu.data.dto.ResponseDTO;
 import com.digitaledu.exception.DuplicateException;
-import com.digitaledu.model.Users;
 import com.digitaledu.wrapper.StudentWrapper;
 import com.digitaledu.wrapper.LecturerWrapper;
 import com.digitaledu.model.Lecturer;
 import com.digitaledu.repository.LecturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

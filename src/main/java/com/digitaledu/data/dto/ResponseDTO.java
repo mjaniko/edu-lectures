@@ -1,4 +1,4 @@
-package com.digitaledu.dto;
+package com.digitaledu.data.dto;
 
 import lombok.Builder;
 import lombok.Getter;

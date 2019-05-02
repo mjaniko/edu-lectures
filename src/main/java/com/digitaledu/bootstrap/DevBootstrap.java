@@ -36,35 +36,15 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         List<Users> usersList = new ArrayList<>();
 
-        usersList.add(Users.builder()
-                .username("user1")
-                .password("123")
-                .fullName("Demo User 1")
-                .active(true)
-                .build()
-        );
-        usersList.add(Users.builder()
-                .username("user2")
-                .password("123")
-                .fullName("Demo User 2")
-                .active(true)
-                .build()
-        );
-        usersList.add(Users.builder()
-                .username("user3")
-                .password("123")
-                .fullName("Demo User 3")
-                .active(true)
-                .build()
-        );
-        usersList.add(Users.builder()
-                .username("user4")
-                .password("124")
-                .fullName("Demo User 4")
-                .active(true)
-                .build()
-        );
-
+        for(int i = 1; i <= 20; i++){
+            usersList.add(Users.builder()
+                    .username("user"+i)
+                    .password("123")
+                    .fullName("Demo User "+i)
+                    .active(true)
+                    .build()
+            );
+        }
         usersRepository.saveAll(usersList);
 
 
@@ -102,8 +82,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         permissionList.add(Permission.builder().name("CAN_DELETE").build());
 
         permissionRepository.saveAll(permissionList);
-
-
 
     }
 

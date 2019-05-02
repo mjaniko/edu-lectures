@@ -1,6 +1,6 @@
 package com.digitaledu.handler;
 
-import com.digitaledu.dto.ResponseDTO;
+import com.digitaledu.data.dto.ResponseDTO;
 import com.digitaledu.exception.DuplicateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

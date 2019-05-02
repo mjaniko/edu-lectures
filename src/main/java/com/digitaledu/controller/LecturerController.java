@@ -1,6 +1,6 @@
 package com.digitaledu.controller;
 
-import com.digitaledu.dto.LecturerDTO;
+import com.digitaledu.data.dto.LecturerDTO;
 import com.digitaledu.wrapper.LecturerWrapper;
 import com.digitaledu.model.Lecturer;
 import com.digitaledu.service.LectureService;

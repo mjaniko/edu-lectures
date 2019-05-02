@@ -1,9 +1,13 @@
 package com.digitaledu.controller;
 
-import com.digitaledu.model.Lecturer;
+import com.digitaledu.data.dto.UserDTO;
+import com.digitaledu.data.mapper.UserMapper;
 import com.digitaledu.model.Users;
 import com.digitaledu.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +21,8 @@ public class UsersController {
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private UserMapper userMapper;
 
     @PostMapping("/c")
     private Users create(@RequestBody Users userModel) {
@@ -58,8 +64,21 @@ public class UsersController {
 
     @GetMapping("/printAll")
     private List<Users> printAll() {
-        return (List<Users>) usersRepository.findAll();
+        return usersRepository.findAll();
     }
+
+    @GetMapping("/printDtoAll")
+    private List<UserDTO> printDtoAll() {
+        return userMapper.mapList(usersRepository.findAll());
+    }
+
+    @GetMapping("/printFilterUser")
+    private Page<Users> printFilterUser(@PageableDefault(value = 7) Pageable paginator ){
+        return usersRepository.findAll(paginator);
+    }
+
+
+
 
 
     @GetMapping("/findByUserName")
