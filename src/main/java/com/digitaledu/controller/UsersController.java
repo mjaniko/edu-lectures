@@ -1,7 +1,9 @@
 package com.digitaledu.controller;
 
+import com.digitaledu.data.dto.ResponseDTO;
 import com.digitaledu.data.dto.UserDTO;
 import com.digitaledu.data.mapper.UserMapper;
+import com.digitaledu.data.specification.GenericSpecification;
 import com.digitaledu.model.Users;
 import com.digitaledu.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,12 +78,9 @@ public class UsersController {
     }
 
     @GetMapping("/printFilterUser")
-    private Page<Users> printFilterUser(@PageableDefault(value = 7) Pageable paginator ){
+    private Page<Users> printFilterUser(@PageableDefault(value = 7) Pageable paginator) {
         return usersRepository.findAll(paginator);
     }
-
-
-
 
 
     @GetMapping("/findByUserName")
@@ -92,9 +94,66 @@ public class UsersController {
     }
 
     @GetMapping("/setActivity")
-    private ResponseEntity updateAllUserActivity(@RequestParam("active") boolean isActive){
+    private ResponseEntity updateAllUserActivity(@RequestParam("active") boolean isActive) {
         usersRepository.setAllUserActivityStatus(isActive);
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/findById/{id}")
+    private ResponseEntity findOneUser(@PathVariable Long id) {
+        Optional<Users> user = usersRepository.findOne(GenericSpecification.filterById(id));
+        if (user.isPresent()) {
+            return ResponseEntity.ok(
+                    ResponseDTO.builder()
+                            .success(true)
+                            .content(user.get())
+                            .build()
+            );
+        }
+        return ResponseEntity.ok(
+                ResponseDTO.builder()
+                        .success(false)
+                        .content("User is null")
+                        .build()
+        );
+    }
+
+    @GetMapping("/findByRange/{from}/{to}/{check}")
+    private ResponseEntity findOneUser(@PathVariable String from, @PathVariable String to, @PathVariable boolean check) {
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+
+        Date fromDate;
+        Date toDate;
+
+        try {
+            fromDate = format.parse(from);
+            toDate = format.parse(to);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(
+                    ResponseDTO.builder()
+                            .success(false)
+                            .content("Parse Exceptio")
+                            .build()
+            );
+        }
+
+        List<Users> user = usersRepository.findAll(GenericSpecification.filterRangeByDate(fromDate, toDate));
+        if (!user.isEmpty()) {
+            return ResponseEntity.ok(
+                    ResponseDTO.builder()
+                            .success(true)
+                            .content(user)
+                            .build()
+            );
+        }
+        return ResponseEntity.ok(
+                ResponseDTO.builder()
+                        .success(false)
+                        .content("User is null")
+                        .build()
+        );
     }
 
 }

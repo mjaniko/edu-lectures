@@ -29,6 +29,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private DeviceStateRepository deviceStateRepository;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -41,15 +44,15 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                     .username("user"+i)
                     .password("123")
                     .fullName("Demo User "+i)
-                    .active(true)
+                    .active(i % 2 == 0)
                     .build()
             );
         }
+
         usersRepository.saveAll(usersList);
 
 
         List<Lecturer> lecturerList = new ArrayList<>();
-
 
         lecturerList.add(
                 Lecturer.builder()
@@ -82,6 +85,24 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         permissionList.add(Permission.builder().name("CAN_DELETE").build());
 
         permissionRepository.saveAll(permissionList);
+
+
+        List<DeviceState> deviceStates = new ArrayList<>();
+
+        deviceStates.add(DeviceState.builder()
+                .name("DEVICE_1")
+                .build());
+
+        deviceStates.add(DeviceState.builder()
+                .name("DEVICE_2")
+                .build());
+
+
+        deviceStates.add(DeviceState.builder()
+                .name("DEVICE_3")
+                .build());
+
+        deviceStateRepository.saveAll(deviceStates);
 
     }
 

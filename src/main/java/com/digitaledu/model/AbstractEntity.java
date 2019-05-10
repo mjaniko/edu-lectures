@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @MappedSuperclass
-abstract class AbstractEntity {
+public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

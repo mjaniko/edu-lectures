@@ -3,6 +3,7 @@ package com.digitaledu.repository;
 
 import com.digitaledu.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +13,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface UsersRepository extends JpaRepository<Users, Long> {
+public interface UsersRepository extends JpaRepository<Users, Long>, JpaSpecificationExecutor {
 
     // SELECT * FROM user WHERE username = ? LIMIT 1
     Users findByUsername(String username);
@@ -27,7 +28,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     @Query("FROM Users u where u.username = ?1 ")
     Users getUserName(String username);
 
-    @Query(value = "SELECT id FROM t_user where username = :parameter LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT  FROM t_user where username = :parameter LIMIT 1", nativeQuery = true)
     Long getUserNamee(@Param("parameter") String username);
 
     /**
